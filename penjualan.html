@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PENJUALAN</title>
+</head>
+<body>
+<h2><p align="center">LATIHAN SEDERHANA HTML-JAVASCRIPT-CSS</p></h2>
+<h5><p align="center">===================================================</p></h5>
+<marquee bgcolor="Black" scrollamount="5" width="100%"><span style="color:white;font-size:30px;">Selamat Berlatih dan Terus Belajar dan Mencoba</span></marquee>
+<p align="center">
+<a href="index.html"><img src="gambar/home.png"></a>
+<a href="Penjualan.html"><img src="gambar/Penjualan.png"></a>
+<a href="Buku Tamu.html"><img src="gambar/Tamu.png"></a>	
+</p>
+<div align="center">
+		<form method="POST" name="penjualan">
+			<table>
+				<tr>
+					<td>Kode Barang</td>
+					<td>
+						<select name="kode" id="kode" onchange="pilihkode();">
+							<option value="">Pilih Kode Barang</option>
+							<option value="B001">B001</option>
+							<option value="B002">B002</option>
+							<option value="B003">B003</option>
+						</select> </td>
+				</tr>
+				<tr>
+					<td>Nama Barang</td>
+					<td><input type="text" name="nama" id="nama"></td>
+				</tr>
+				<tr>
+					<td>Harga Satuan</td>
+					<td><input type="text" name="hargasatuan" id="hargasatuan"></td>
+				</tr>
+				<tr>
+					<td>Satuan</td>
+					<td><input type="text" name="satuan" id="satuan"></td>
+				</tr>
+				<tr>
+					<td>Jumlah Beli</td>
+					<td><input type="text" name="jumlah" id="jumlah" onkeyup="hitung();"></td>
+				</tr>
+				<tr>
+					<td>Total Harga</td>
+					<td><input type="text" name="totalharga" id="totalharga"></td>
+				</tr>
+				<tr>
+					<td>Diskon(%)</td>
+					<td><input type="text" name="diskon" id="diskon" onkeyup="hitung();"></td>
+				</tr>
+				<tr>
+					<td>Potongan</td>
+					<td><input type="text" name="potongan" id="potongan"></td>
+				</tr>
+				<tr>
+					<td>Total Harga - Diskon</td>
+					<td><input type="text" name="subtotal" id="subtotal"></td>
+				</tr>
+				<tr>
+					<td>Bayar</td>
+					<td><input type="text" name="bayar" id="bayar" onkeyup="hitung();"></td>
+				</tr>
+				<tr>
+					<td>Kembali</td>
+					<td><input type="text" name="kembali" id="kembali"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td colspan="2"><input type="reset" name="reset" value="Hitung Lagi"></td>
+				</tr>
+			</table>
+			</table>
+		</form>
+	</div>
+</center>
+<script type="text/javascript">
+	function pilihkode(){
+		var	kodebarang=document.getElementById("kode").value;
+		var	barang=["Keyboard","Monitor","Flashdrive"];
+		var	harga=[40000,1000000,80000];
+		var	satuan=["Unit","Unit","Buah"];
+			if(kodebarang=="B001") {
+				var	namabarang=document.getElementById("nama").value=barang[0];
+				var	harga=document.getElementById("hargasatuan").value=harga[0];
+				var	satuan=document.getElementById("satuan").value=satuan[0];
+			}
+			else if(kodebarang=="B002") {
+				var	namabarang=document.getElementById("nama").value=barang[1];
+				var	harga=document.getElementById("hargasatuan").value=harga[1];
+				var	satuan=document.getElementById("satuan").value=satuan[1];
+			}
+			if(kodebarang=="B003") {
+				var	namabarang=document.getElementById("nama").value=barang[2];
+				var	harga=document.getElementById("hargasatuan").value=harga[2];
+				var	satuan=document.getElementById("satuan").value=satuan[2];
+			}
+			document.penjualan.jumlah.focus(); 
+	}
+
+	function hitung(){
+		var	hargasatuan=document.getElementById("hargasatuan").value;
+		var	jumlah=document.getElementById("jumlah").value;
+		var	total=parseInt(hargasatuan)*parseInt(jumlah);
+		var	totalharga=document.getElementById("totalharga").value;
+		var	diskon=document.getElementById("diskon").value;
+		var	diskon_pot=parseInt(totalharga)*parseInt(diskon)/parseInt(100);
+
+		if (!isNaN(total)) {
+			var total=document.getElementById("totalharga").value=total;
+		}
+
+		if (!isNaN(diskon_pot)) {
+			var potongan=document.getElementById("potongan").value=diskon_pot;
+		}
+		var sub_total=parseInt(totalharga)-parseInt(potongan);
+		if (!isNaN(sub_total)) {
+			var subtotal=document.getElementById("subtotal").value=sub_total;
+		}
+		var bayar=document.getElementById("bayar").value;
+		var bayar_b=parseInt(bayar)-parseInt(subtotal);
+		if (!isNaN(bayar_b)) {
+			document.getElementById('kembali').value=bayar_b;
+		}
+	}
+
+</script>
+</body>
+</html>
