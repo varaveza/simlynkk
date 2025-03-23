@@ -13,6 +13,7 @@ CHANNEL_ID = '-1002501391473'
 known_recipients = set()
 
 def send_telegram_message(message):
+    """Sends a message to the Telegram channel"""
     try:
         url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
         data = {
@@ -25,6 +26,7 @@ def send_telegram_message(message):
         print(f"Telegram Error: {e}")
 
 async def handle_event(event):
+    """Process transaction event"""
     try:
         tx = web3.eth.get_transaction(event)
 
@@ -56,6 +58,7 @@ async def handle_event(event):
         print(f"Error: {e}")
 
 async def log_loop(event_filter):
+    """Main event loop to monitor transactions"""
     while True:
         try:
             for event in event_filter.get_new_entries():
@@ -66,20 +69,16 @@ async def log_loop(event_filter):
             await asyncio.sleep(1)
 
 def main():
+    """Entry point for the script"""
     print('Monitoring transactions...')
     send_telegram_message('🟢 Monitor started\nWatching for new transactions...')
 
     tx_filter = web3.eth.filter('pending')
 
-    loop = asyncio.get_event_loop()
     try:
-        loop.run_until_complete(
-            asyncio.gather(
-                log_loop(tx_filter)
-            )
-        )
-    finally:
-        loop.close()
+        asyncio.run(log_loop(tx_filter))
+    except KeyboardInterrupt:
+        print("Monitoring stopped by user")
 
 if __name__ == '__main__':
     main()
